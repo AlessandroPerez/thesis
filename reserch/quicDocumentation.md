@@ -140,3 +140,11 @@ Sending a RESET_STREAM means that an endpoint cannot guarantee delivery of strea
 Once the application receives the signal indicating that the stream was reset, the receiving part of the stream transitions to the "Reset Read" state, which is a terminal state.
 
 ### Permitted Frame Types
+
+The sender of a stream sends just three frame types that effect the state of a  stream at either the sender or receiver: STEAM, STREAM_DATA_BLOCKED, and  RESET_STREAM.
+
+A sender **MUST NOT** send any of these frames from a terminal state. A sender **MUST NOT** send a STREAM or STREAM_DATA_BLOCKED frame for a stream in the "reset Sent" state or any terminal state -- that is, after sending a RESET_STREAM frame. A receiver could receive any of these three frames in any state, due to the possibility of delayed delivery of packets carrying them.
+
+The receiver of a stream sends MAX_STREAM_DATA frames and STOP_SENDING frames.
+
+The receiver
